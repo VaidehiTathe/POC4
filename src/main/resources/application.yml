@@ -1,0 +1,25 @@
+server:
+  port: 9003
+  
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+      - id: user-service
+        uri: lb://user-service
+        predicates:
+           - Path=/users/**
+      - id: dept-service
+        uri: lb://dept-service
+        predicates:
+           - Path=/departments/**
+           
+           
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8888/eureka
